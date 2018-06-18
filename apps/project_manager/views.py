@@ -2,23 +2,25 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from . import models as m
 
-# Create your views here.
 
 def index(request):
-    if request.method == 'POST':
-        try:
-            project = m.Project()
-            project.title = request.POST['html_title']
-            project.user_id = request.session['user_id']
-            project.save()
-        except:
-            messages.error(request, 'invalid input')
+    if 'user_id' in request.session:
+        if request.method == 'POST':
+            try:
+                project = m.Project()
+                project.title = request.POST['html_title']
+                project.user_id = request.session['user_id']
+                project.save()
+            except:
+                messages.error(request, 'invalid input')
 
 
-    context = {
-        'all_projects': m.Project.objects.filter(user_id=request.session['user_id'])
-    }    
-    return render(request, 'project_manager/index.html', context = context)
+        context = {
+            'all_projects': m.Project.objects.filter(user_id=request.session['user_id'])
+        }    
+        return render(request, 'project_manager/index.html', context = context)
+
+    return redirect('user:index')
 
 
 def edit_project(request, project_id):

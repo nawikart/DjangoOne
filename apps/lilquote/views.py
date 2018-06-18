@@ -4,21 +4,24 @@ from . import models as m
 import apps.user.models as mu
 from django.db.models import Q
 
-# Create your views here.
-def index(request):
-    if request.method == 'POST':
-        try:
-            quote = m.Quote()
-            quote.content = request.POST['html_content']
-            quote.user_id = request.session['user_id']
-            quote.save()
-        except:
-            messages.error(request, 'invalid input')
 
-    context = {
-        'all_quotes': m.Quote.objects.all()
-    }    
-    return render(request, 'lilquote/index.html', context = context)
+def index(request):
+    if 'user_id' in request.session:
+        if request.method == 'POST':
+            try:
+                quote = m.Quote()
+                quote.content = request.POST['html_content']
+                quote.user_id = request.session['user_id']
+                quote.save()
+            except:
+                messages.error(request, 'invalid input')
+
+        context = {
+            'all_quotes': m.Quote.objects.all()
+        }    
+        return render(request, 'lilquote/index.html', context = context)
+
+    return redirect('user:index')
 
 
 def delete(request, id):
