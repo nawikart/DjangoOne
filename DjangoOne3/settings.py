@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.project_manager',
     'apps.bill_tracker',
     'apps.lilquote',
+    'apps.tv_guide',
 ]
 
 MIDDLEWARE = [

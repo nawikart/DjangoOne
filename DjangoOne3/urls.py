@@ -22,4 +22,5 @@ urlpatterns = [
     path('project-manager/', include('apps.project_manager.urls', namespace='project_manager')),
     path('bill-tracker/', include('apps.bill_tracker.urls', namespace='bill_tracker')),
     path('lilquote/', include('apps.lilquote.urls', namespace='lilquote')),
+    path('tv-guide/', include('apps.tv_guide.urls', namespace='tv_guide')),
 ]

@@ -5,7 +5,7 @@
 <div class="container mb-5" style="margin-top: -30px;">
     <form style="float: right; width: 400px;" class="form-inline my-2 my-lg-0" method="POST" action="{% url 'lilquote:search' %}">
         {% csrf_token %}        
-        <input style="width: 100%;" class="form-control mr-sm-2" name="html_query" type="search" placeholder="part of email" aria-label="Search">
+        <input style="width: 100%;" class="form-control mr-sm-2" name="html_query" type="search" placeholder="part of name or email" aria-label="Search">
         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
     </form>
 </div>
@@ -39,7 +39,10 @@
 {% for quote in all_quotes %}
 <div class="card col-sm-8 xs-12 py-3 px-4 mb-4" style="box-shadow: 3px 3px 3px #ccc; position: relative;">
     {% if request.session.user_id == quote.user_id %}
-        <a href="{% url 'lilquote:delete' id=quote.id %}" type="button" class="btn btn-danger btn-sm" style="position: absolute; top: 0; right:0">delete</a>
+        <div style="position: absolute; top: 0; right:0">
+            <a href="{% url 'lilquote:edit' id=quote.id %}" type="button" class="btn btn-warning btn-sm">edit</a>
+            <a href="{% url 'lilquote:delete' id=quote.id %}" type="button" class="btn btn-danger btn-sm">delete</a>
+        </div>
     {% endif %}
 
     <blockquote class="blockquote mb-0">

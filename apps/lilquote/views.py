@@ -20,10 +20,27 @@ def index(request):
     }    
     return render(request, 'lilquote/index.html', context = context)
 
+
 def delete(request, id):
     quote = m.Quote.objects.get(id=id)
     quote.delete()
     return redirect('lilquote:index')
+
+
+def edit(request, id):
+    quote = m.Quote.objects.get(id=id)
+
+    if request.method == 'POST':
+        quote.content = request.POST['html_content']
+        quote.save()
+        return redirect('lilquote:user_quotes', user_id=quote.user.id)
+
+    context = {
+        'quote': quote
+    } 
+
+    return render(request, 'lilquote/edit.html', context = context)
+
 
 def user_quotes(request, user_id):
     context = {

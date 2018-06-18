@@ -26,7 +26,6 @@ def edit_project(request, project_id):
     project = m.Project.objects.get(id=project_id)
 
     if request.method == 'POST':
-        project = m.Project.objects.get(id=project_id)
         project.title = request.POST['html_title']
         project.save()
         return redirect('project_manager:index')

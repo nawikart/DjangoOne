@@ -6,8 +6,8 @@ app_name = 'lilquote'
 urlpatterns = [
     path('', views.index, name='index'),
     path('<int:id>/delete', views.delete, name='delete'),
+    path('<int:id>/edit', views.edit, name='edit'),
     path('<int:user_id>/quotes', views.user_quotes, name='user_quotes'),
-
     path('search', views.search, name='search'),
     path('result/<query>', views.result, name='result'),
 ]
