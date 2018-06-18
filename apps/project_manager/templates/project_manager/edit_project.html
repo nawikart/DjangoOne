@@ -11,7 +11,8 @@
                 <input type="text" class="form-control" name="html_title" value="{{ project.title }}">
             </div>
             <div class="col-auto">
-                <button class="btn btn-success">Create</button>
+                <button class="btn btn-success">Save</button>
+                <a href="{% url 'project_manager:index' %}" class="btn btn-warning">cancel</a>
             </div>                
         </div>
     </form>

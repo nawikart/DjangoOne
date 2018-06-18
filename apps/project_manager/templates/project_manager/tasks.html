@@ -12,16 +12,16 @@
                 <input type="text" class="form-control" name="html_description" value="">
             </div>
             <div class="col-auto">
-                <button class="btn btn-success">Create</button>
-                <a href="{% url 'project_manager:index' %}" class="btn btn-danger">cancel</a>
+                <button class="btn btn-primary">Create</button>
+                <a href="{% url 'project_manager:index' %}" class="btn btn-warning">cancel</a>
             </div>                
         </div>
     </form>
 
     {% include 'user/errors.html' %}
     
-    <div class="row py-3 mb-3" style="background-color: #ff9900;">
-        <div class="col-8 text-white"><b>Description</b></div>
+    <div class="row py-3 mb-3" style="background-color: #ddd;">
+        <div class="col-8"><b>Description</b></div>
     </div>
 
     {% for task in all_tasks %}
@@ -29,7 +29,7 @@
         <div class="col-8">{{ task.description }}</div>
         <div class="col-2">{{ task.created_at }}</div>
         <div class="col-auto">
-            <a href="{% url 'project_manager:edit_task' task_id=task.id %}" class="btn btn-sm btn-primary">edit</a>
+            <a href="{% url 'project_manager:edit_task' task_id=task.id %}" class="btn btn-sm btn-warning">edit</a>
             <a href="{% url 'project_manager:delete_task' task_id=task.id %}" class="btn btn-sm btn-danger">delete</a>
         </div>
     </div>

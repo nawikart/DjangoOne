@@ -13,7 +13,8 @@
                 <input type="text" class="form-control" name="html_amount" value="{{ bill.amount }}">
             </div>
             <div class="col-auto">
-                <button class="btn btn-primary">Add Bill</button>
+                <button class="btn btn-primary">save</button>
+                <a href="{% url 'bill_tracker:index' %}" class="btn btn-warning">cancel</a>
             </div>                
         </div>
     </form>
