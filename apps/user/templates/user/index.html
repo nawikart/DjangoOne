@@ -1,0 +1,28 @@
+{% extends 'user/base.html' %}
+
+{% block body %}
+
+<div class="row my-5">
+    <div class="col-9 offset-3">
+      {% if request.session.user_id %}
+        <h1>Welcome, {{ request.session.name }}</h1>
+      {% else %}
+        <h1>Login in to DjangoOne</h1>
+        <form action="{% url 'user:index' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="loginemail">Email address</label>
+              <input type="email" class="form-control" name="html_email" id="loginemail" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="loginpassword">Password</label>
+              <input type="password" class="form-control" name="html_password" id="loginpassword" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          {% include 'user/errors.html' %}
+        {% endif %}
+    </div>
+</div>
+
+{% endblock%}

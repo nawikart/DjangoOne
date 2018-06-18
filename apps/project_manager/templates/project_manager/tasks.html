@@ -1,0 +1,38 @@
+{% extends 'user/base.html' %}
+
+{% block body %}
+
+<h1 class="mt-5">{{ project.title }}</h1>
+    <form method="POST" action="{% url 'project_manager:tasks' project_id=project.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="project_id" value="{{ project.id }}">
+        <div class="form-group row">
+            <div class="col-1"></div>
+            <div class="col-9">
+                <input type="text" class="form-control" name="html_description" value="">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-success">Create</button>
+                <a href="{% url 'project_manager:index' %}" class="btn btn-danger">cancel</a>
+            </div>                
+        </div>
+    </form>
+
+    {% include 'user/errors.html' %}
+    
+    <div class="row py-3 mb-3" style="background-color: #ff9900;">
+        <div class="col-8 text-white"><b>Description</b></div>
+    </div>
+
+    {% for task in all_tasks %}
+    <div class="row py-3 border border-grey border-bottom-1 border-top-0 border-left-0 border-right-0">
+        <div class="col-8">{{ task.description }}</div>
+        <div class="col-2">{{ task.created_at }}</div>
+        <div class="col-auto">
+            <a href="{% url 'project_manager:edit_task' task_id=task.id %}" class="btn btn-sm btn-primary">edit</a>
+            <a href="{% url 'project_manager:delete_task' task_id=task.id %}" class="btn btn-sm btn-danger">delete</a>
+        </div>
+    </div>
+    {% endfor %}
+
+{% endblock%}

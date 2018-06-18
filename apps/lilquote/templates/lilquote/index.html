@@ -1,0 +1,59 @@
+{% extends 'user/base.html' %}
+
+{% block body %}
+
+<div class="container mb-5" style="margin-top: -30px;">
+    <form style="float: right; width: 400px;" class="form-inline my-2 my-lg-0" method="POST" action="{% url 'lilquote:search' %}">
+        {% csrf_token %}        
+        <input style="width: 100%;" class="form-control mr-sm-2" name="html_query" type="search" placeholder="part of email" aria-label="Search">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+{% include 'user/errors.html' %}
+
+{% if user.id > 0 %}
+
+    {% if request.session.user_id == user.id %}
+        <h1>My quotes:</h1>
+    {% else %}
+        <h1>{{ user.name }}'s quotes:</h1>
+    {% endif %}
+
+{% elif query %}
+
+    <h1>Search for: "{{ query }}"</h1>
+
+{% elif request.session.user_id %}
+    <h1 class="mb-3">Say something...</h1>
+    <form action="{% url 'lilquote:index' %}" method="POST">
+        {% csrf_token %}        
+        <textarea name="html_content" class="col-sm-8 col-xs-12" cols="60" rows="4" style="border-radius: 5px;"></textarea>
+        <p><button type="submit" class="btn btn-success">Say It!</button></p> 
+    </form>
+{% endif %}
+<p>&nbsp;</p>
+
+{% for quote in all_quotes %}
+<div class="card col-sm-8 xs-12 py-3 px-4 mb-4" style="box-shadow: 3px 3px 3px #ccc; position: relative;">
+    {% if request.session.user_id == quote.user_id %}
+        <a href="{% url 'lilquote:delete' id=quote.id %}" type="button" class="btn btn-danger btn-sm" style="position: absolute; top: 0; right:0">delete</a>
+    {% endif %}
+
+    <blockquote class="blockquote mb-0">
+        <p style="border-left: 5px solid #ccc; padding-left: 10px;">{{ quote.content }}</p>
+        <footer class="blockquote-footer">
+            <small class="text-primary">
+            by <cite title="Source Title"><a href="{% url 'lilquote:user_quotes' user_id=quote.user_id %}">{{ quote.user.name }} - {{ quote.user.email }}</a></cite>
+            </small>
+            <small style="float: right; color: #000;">
+                {{ quote.created_at }}
+            </small>                
+        </footer>        
+    </blockquote>
+</div>
+{% endfor %}
+
+{% endblock%}

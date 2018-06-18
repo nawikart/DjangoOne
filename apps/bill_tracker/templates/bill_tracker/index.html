@@ -1,0 +1,39 @@
+{% extends 'user/base.html' %}
+
+{% block body %}
+
+<h1>Bill Tracker</h1>
+    <form method="POST" action="{% url 'bill_tracker:index' %}">
+        {% csrf_token %}
+        <div class="form-group row">
+            <div class="col-7">
+                <input type="text" class="form-control" name="html_description">
+            </div>
+            <div class="col-2">
+                <input type="text" class="form-control" name="html_amount">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary">Add Bill</button>
+            </div>                
+        </div>
+    </form>
+    {% include 'user/errors.html' %}
+    
+
+    <div class="row">
+        <div class="col-7">Description</div>
+        <div class="col-3">Amount</div>
+    </div>
+
+    {% for bill in all_bills %}
+    <div class="row mb-3">
+        <div class="col-7">{{ bill.description }}</div>
+        <div class="col-3">{{ bill.amount }}</div>
+        <div class="col-auto">
+            <a href="{% url 'bill_tracker:edit' id=bill.id %}" class="btn btn-sm btn-warning">edit</a>
+            <a href="{% url 'bill_tracker:delete' id=bill.id %}" class="btn btn-sm btn-danger">delete</a>
+        </div>
+    </div>
+    {% endfor %}
+
+{% endblock%}

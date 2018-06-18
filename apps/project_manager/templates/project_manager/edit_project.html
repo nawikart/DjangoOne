@@ -1,0 +1,20 @@
+{% extends 'user/base.html' %}
+
+{% block body %}
+
+<h1 class="mt-5">Projects</h1>
+    <form method="POST" action="{% url 'project_manager:edit_project' project_id=project.id %}">
+        {% csrf_token %}
+        <div class="form-group row">
+            <div class="col-1"></div>
+            <div class="col-9">
+                <input type="text" class="form-control" name="html_title" value="{{ project.title }}">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-success">Create</button>
+            </div>                
+        </div>
+    </form>
+    {% include 'user/errors.html' %}
+
+{% endblock%}

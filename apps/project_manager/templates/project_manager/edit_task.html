@@ -1,0 +1,21 @@
+{% extends 'user/base.html' %}
+
+{% block body %}
+
+<h1 class="mt-5">{{ project.title }}</h1>
+    <form method="POST" action="{% url 'project_manager:edit_task' task_id=task.id %}">
+        {% csrf_token %}
+        <div class="form-group row">
+            <div class="col-1"></div>
+            <div class="col-9">
+                <input type="text" class="form-control" name="html_description" value="{{ task.description }}">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-success">Create</button>
+                <a href="{% url 'project_manager:index' %}" class="btn btn-danger">cancel</a>
+            </div>                
+        </div>
+    </form>
+    {% include 'user/errors.html' %}
+
+{% endblock%}
