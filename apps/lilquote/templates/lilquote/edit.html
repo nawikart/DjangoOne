@@ -1,0 +1,14 @@
+{% extends 'user/base.html' %}
+
+{% block body %}
+
+<h1 class="mb-3">Edit quote</h1>
+<form action="{% url 'lilquote:edit' id=quote.id %}" method="POST">
+    {% csrf_token %}        
+    <textarea name="html_content" class="col-sm-8 col-xs-12" cols="60" rows="4" style="border-radius: 5px;">
+        {{ quote.content }}
+    </textarea>
+    <p><button type="submit" class="btn btn-success">Say It!</button></p> 
+</form>
+
+{% endblock%}
