@@ -75,7 +75,7 @@ def result(request, query):
     pprint(shows)
     movie_id_liked = []
     
-    if request.session:
+    if 'user_id' in request.session:
         movie_id_liked = get_movie_ids_liked(request, request.session['user_id'])
 
     context = {
